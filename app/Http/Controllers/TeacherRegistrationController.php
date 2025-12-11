@@ -26,7 +26,7 @@ class TeacherRegistrationController extends Controller
         $this->aiService = $aiService;
     }
 
-    // Step 1: Show name and email form
+    // Step 1: Show name and email form yes
     public function showStep1()
     {
         return Inertia::render('Teacher/Register/Step1');
