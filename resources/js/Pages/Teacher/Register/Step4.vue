@@ -1,0 +1,216 @@
+<template>
+  <div class="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md mx-auto">
+      <div class="text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 mb-4">
+          <svg class="w-8 h-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+
+        <h2 class="text-3xl font-extrabold text-gray-900">
+          Complete Registration
+        </h2>
+        <p class="mt-2 text-lg text-emerald-700 font-medium">
+          Step 4: Get your AI-powered teacher appraisal
+        </p>
+      </div>
+
+      <div class="mt-8 bg-white shadow-xl overflow-hidden sm:rounded-2xl border border-emerald-100">
+        <div class="px-4 py-5 sm:p-6">
+          <!-- Premium Badge -->
+          <div class="flex justify-center mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow">
+              <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+              PREMIUM APPRAISAL FOR FREE
+            </span>
+          </div>
+
+          <div class="text-center">
+            <!-- Price Display -->
+            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-6 mb-6 border border-emerald-200">
+              <p class="text-sm text-emerald-600 font-medium">Appraisal Fee</p>
+              <p class="text-4xl font-bold text-gray-900 mt-2 line-through">₦{{ paymentAmount.toLocaleString() }}</p>
+              <p class="text-sm text-emerald-500 mt-1 font-medium">per appraisal</p>
+
+              <!-- Discount Badge -->
+              <div class="mt-3 inline-block">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                  <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Special educator price
+                </span>
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <div class="mb-8">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">What you'll get:</h3>
+              <ul class="space-y-3 text-left">
+                <li class="flex items-center p-3 bg-emerald-50 rounded-lg">
+                  <div class="flex-shrink-0">
+                    <div class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100">
+                      <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <span class="ml-3 text-sm text-gray-700 font-medium">AI-powered teacher appraisal</span>
+                </li>
+
+                <li class="flex items-center p-3 bg-emerald-50 rounded-lg">
+                  <div class="flex-shrink-0">
+                    <div class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100">
+                      <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <span class="ml-3 text-sm text-gray-700 font-medium">Detailed improvement suggestions</span>
+                </li>
+
+                <li class="flex items-center p-3 bg-emerald-50 rounded-lg">
+                  <div class="flex-shrink-0">
+                    <div class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100">
+                      <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <span class="ml-3 text-sm text-gray-700 font-medium">Access to job opportunities</span>
+                </li>
+
+                <li class="flex items-center p-3 bg-emerald-50 rounded-lg">
+                  <div class="flex-shrink-0">
+                    <div class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100">
+                      <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <span class="ml-3 text-sm text-gray-700 font-medium">Professional profile visibility</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Payment Button -->
+            <div class="space-y-4">
+              <button
+                @click="processPayment"
+                :disabled="processing"
+                class="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:ring-offset-2 transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                <svg v-if="!processing" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                {{ processing ? 'Processing...' : 'Get Appraisal for FREE' }}
+              </button>
+
+
+
+              <p v-if="error" class="mt-3 p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-200">
+                <svg class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.998-.833-2.732 0L4.346 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                {{ error }}
+              </p>
+
+              <!-- Security Badges -->
+              <div class="flex items-center justify-center space-x-6 pt-4 border-t border-emerald-100">
+                <div class="flex items-center text-xs text-emerald-600">
+                  <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  <span>Secure</span>
+                </div>
+                <div class="flex items-center text-xs text-emerald-600">
+                  <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <span>Encrypted</span>
+                </div>
+                <div class="flex items-center text-xs text-emerald-600">
+                  <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                  <span>Paystack</span>
+                </div>
+              </div>
+
+              <p class="mt-4 text-xs text-emerald-500 text-center">
+                🔒 Secure payment processed by Paystack • Your data is protected
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Navigation -->
+      <div class="mt-6 text-center">
+        <button
+          type="button"
+          @click="$inertia.visit('/teacher/register/resume')"
+          class="inline-flex items-center text-sm font-medium text-emerald-600 hover:text-emerald-700 focus:outline-none transition"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to previous step
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { router } from '@inertiajs/vue3'
+import axios from 'axios'
+
+const processing = ref(false)
+const error = ref('')
+
+const props = defineProps({
+  paymentAmount: Number
+})
+
+const processPayment = async () => {
+  processing.value = true
+  error.value = ''
+
+  try {
+    const response = await axios.post('/teacher/register/payment/process', {}, {
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+
+    console.log('Payment response:', response.data)
+
+    if (response.data.status && response.data.data) {
+      // For testing: Directly go to step 5 (bypass Paystack)
+      if (response.data.data.authorization_url.includes('/teacher/register/step5')) {
+        router.visit('/teacher/register/step5')
+      } else {
+        // Real Paystack flow
+        window.location.href = response.data.data.authorization_url
+      }
+    } else {
+      error.value = response.data.message || 'Failed to initialize payment'
+    }
+  } catch (err) {
+    if (err.response) {
+      error.value = err.response.data.error || 'Payment initialization failed'
+    } else {
+      error.value = 'Network error. Please try again.'
+    }
+    console.error('Payment error:', err)
+  } finally {
+    processing.value = false
+  }
+}
+</script>
