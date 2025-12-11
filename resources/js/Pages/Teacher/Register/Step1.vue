@@ -1,131 +1,294 @@
 <template>
-  <div class="min-h-screen bg-emerald-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <Head>
-      <title>Teacher's Registration</title>
-    </Head>
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="flex justify-center">
-        <svg class="h-12 w-12 text-emerald-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
-          <path d="M16 12a4 4 0 11-8 0 4 4 0 018 0z" fill="currentColor"/>
-        </svg>
-      </div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Teacher's Registration
-      </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
-        Step 1: Create your account
-      </p>
+  <div class="min-h-screen bg-gradient-to-b from-emerald-50 via-teal-50/30 to-white">
+    <!-- Background decorative elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 -left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200/20 to-teal-300/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-gradient-to-tr from-teal-200/20 to-emerald-300/10 rounded-full blur-3xl"></div>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-white py-8 px-6 shadow sm:rounded-xl sm:px-10 border border-emerald-100">
-        <!-- Social Login Buttons -->
-        <div class="space-y-3">
-          <button
-            type="button"
-            class="w-full inline-flex justify-center items-center px-4 py-2.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition"
-            @click="$inertia.get('/auth/google')"
-          >
-            <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.344-7.574 7.439-7.574c2.328 0 3.891.911 4.785 1.621l3.29-3.137C18.189 1.207 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.868 11.52-11.726 0-.788-.085-1.39-.188-1.98H12.24z" fill="#4285F4"/>
-            </svg>
-            Continue with Google
-          </button>
+    <!-- Back to Home link -->
+    <div class="absolute top-6 left-6 z-10">
+      <button
+        @click="$inertia.get(route('welcome'))"
+        class="inline-flex items-center text-sm font-medium text-emerald-700 hover:text-emerald-800 group transition-colors"
+      >
+        <svg class="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Home
+      </button>
+    </div>
 
-          <button
-            type="button"
-            class="w-full inline-flex justify-center items-center px-4 py-2.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition"
-            @click="$inertia.get('/auth/apple')"
-          >
-            <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.53 11.515c-.024-.11-.03-.22-.03-.33 0-1.65 1.35-3 3-3 .27 0 .53.035.78.105-.12-.6-.47-1.155-1-1.56-.69-.585-1.59-.93-2.55-.93-2.04 0-3.51 1.305-4.29 2.505-1.05-1.305-2.55-2.505-4.59-2.505-2.07 0-3.39 1.335-3.39 3.345 0 1.065.51 2.13 1.35 2.82-1.365 1.59-2.1 3.75-2.1 6.12 0 1.11.27 2.19.78 3.15.51.96 1.23 1.8 2.13 2.43 1.02.72 2.19 1.08 3.39 1.08 1.515 0 3.015-.675 4.035-1.905.09-.105.165-.225.24-.345.03-.06.06-.105.075-.165.015-.06.03-.12.03-.18 0-.06-.015-.12-.03-.18-.015-.06-.045-.105-.075-.15-.075-.135-.165-.255-.27-.375-.99 1.17-2.295 1.92-3.795 1.92-.915 0-1.785-.33-2.505-.885-.75-.57-1.29-1.365-1.53-2.265.96.105 1.95.165 2.97.165 2.85 0 5.205-1.065 7.035-2.88-2.85-.375-5.04-2.745-5.04-5.595 0-.09.015-.18.015-.27.015-.09 0-.18-.015-.27.015-.045 0-.09 0-.135 0-.285.03-.555.06-.825.81.945 1.89 1.5 3.075 1.5 1.71 0 3.165-1.41 3.165-3.15 0-.225-.03-.435-.075-.645 1.095-.675 1.845-1.83 1.845-3.135-.885.495-1.92.825-3 .825-.3 0-.6-.03-.9-.06z" fill="currentColor"/>
-            </svg>
-            Continue with Apple
-          </button>
+    <!-- Progress Indicator -->
+    <div class="absolute top-6 right-6 z-10">
+      <div class="flex items-center space-x-2">
+        <div class="flex items-center">
+          <div class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">
+            1
+          </div>
+          <div class="ml-2 text-sm font-medium text-emerald-700">Account</div>
+        </div>
+        <div class="w-8 h-0.5 bg-emerald-200"></div>
+        <div class="flex items-center opacity-40">
+          <div class="w-6 h-6 rounded-full bg-emerald-200 text-emerald-500 flex items-center justify-center text-xs font-bold">
+            2
+          </div>
+          <div class="ml-2 text-sm font-medium text-emerald-500">Profile</div>
+        </div>
+        <div class="w-8 h-0.5 bg-emerald-200"></div>
+        <div class="flex items-center opacity-40">
+          <div class="w-6 h-6 rounded-full bg-emerald-200 text-emerald-500 flex items-center justify-center text-xs font-bold">
+            3
+          </div>
+          <div class="ml-2 text-sm font-medium text-emerald-500">Qualification</div>
+        </div>
+      </div>
+    </div>
 
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300"></div>
+    <div class="relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div class="w-full max-w-md">
+        <!-- Logo and Title -->
+        <div class="text-center mb-8">
+          <div class="flex justify-center mb-6">
+            <div class="relative">
+
+              <div class="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full animate-pulse"></div>
             </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">Or continue with email</span>
+          </div>
+
+          <h2 class="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-teal-800 bg-clip-text text-transparent">
+            Join as Teacher
+          </h2>
+          <p class="mt-2 text-gray-600">
+            Step 1: Create your account
+          </p>
+        </div>
+
+        <!-- Registration Card -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-emerald-100/50 overflow-hidden">
+          <!-- Card Header -->
+          <div class="bg-gradient-to-r from-emerald-50 to-teal-50 px-8 py-6 border-b border-emerald-100">
+            <h3 class="text-lg font-semibold text-emerald-800">Create Your Teacher Account</h3>
+            <p class="text-sm text-emerald-600 mt-1">Start your journey to better teaching evaluations</p>
+          </div>
+
+          <div class="p-8">
+
+
+            <!-- Email/Password Form -->
+            <form @submit.prevent="submitForm" class="mt-8 space-y-6">
+              <div class="space-y-5">
+                <!-- Full Name -->
+                <div class="space-y-2">
+                  <label for="name" class="block text-sm font-semibold text-gray-700">Full Name</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <input
+                      id="name"
+                      v-model="form.name"
+                      type="text"
+                      required
+                      placeholder="John Doe"
+                      class="pl-10 w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none transition"
+                      :class="{ 'border-red-300': errors.name, 'focus:border-red-500 focus:ring-red-200': errors.name }"
+                    />
+                  </div>
+                  <p v-if="errors.name" class="text-sm text-red-600 mt-1">{{ errors.name }}</p>
+                </div>
+
+                <!-- Email Address -->
+                <div class="space-y-2">
+                  <label for="email" class="block text-sm font-semibold text-gray-700">Email Address</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <input
+                      id="email"
+                      v-model="form.email"
+                      type="email"
+                      required
+                      placeholder="you@example.com"
+                      class="pl-10 w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none transition"
+                      :class="{ 'border-red-300': errors.email, 'focus:border-red-500 focus:ring-red-200': errors.email }"
+                    />
+                  </div>
+                  <p v-if="errors.email" class="text-sm text-red-600 mt-1">{{ errors.email }}</p>
+                </div>
+
+                <!-- Password -->
+                <div class="space-y-2">
+                  <label for="password" class="block text-sm font-semibold text-gray-700">Password</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <input
+                      id="password"
+                      v-model="form.password"
+                      type="password"
+                      required
+                      placeholder="••••••••"
+                      class="pl-10 w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none transition"
+                      :class="{ 'border-red-300': errors.password, 'focus:border-red-500 focus:ring-red-200': errors.password }"
+                      @input="updatePasswordStrength"
+                    />
+                  </div>
+
+                  <!-- Password Strength Indicator -->
+                  <div v-if="form.password" class="mt-3">
+                    <div class="flex justify-between text-xs mb-1">
+                      <span class="text-gray-600">Password strength</span>
+                      <span class="font-medium" :class="{
+                        'text-red-500': passwordStrength < 50,
+                        'text-amber-500': passwordStrength >= 50 && passwordStrength < 75,
+                        'text-emerald-500': passwordStrength >= 75
+                      }">
+                        {{ passwordStrength < 50 ? 'Weak' : passwordStrength < 75 ? 'Good' : 'Strong' }}
+                      </span>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div class="h-full transition-all duration-300" :style="{ width: passwordStrength + '%' }" :class="{
+                        'bg-red-400': passwordStrength < 50,
+                        'bg-amber-400': passwordStrength >= 50 && passwordStrength < 75,
+                        'bg-emerald-500': passwordStrength >= 75
+                      }"></div>
+                    </div>
+                  </div>
+
+                  <p v-if="errors.password" class="text-sm text-red-600 mt-1">{{ errors.password }}</p>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="space-y-2">
+                  <label for="password_confirmation" class="block text-sm font-semibold text-gray-700">Confirm Password</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    </div>
+                    <input
+                      id="password_confirmation"
+                      v-model="form.password_confirmation"
+                      type="password"
+                      required
+                      placeholder="••••••••"
+                      class="pl-10 w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none transition"
+                    />
+                  </div>
+
+                  <!-- Password Match Indicator -->
+                  <div v-if="form.password_confirmation" class="mt-2">
+                    <div class="flex items-center text-xs" :class="{ 'text-emerald-600': form.password === form.password_confirmation, 'text-red-500': form.password !== form.password_confirmation }">
+                      <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="form.password === form.password_confirmation ? 'M5 13l4 4L19 7' : 'M6 18L18 6M6 6l12 12'" />
+                      </svg>
+                      {{ form.password === form.password_confirmation ? 'Passwords match' : 'Passwords do not match' }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="flex items-start mt-4">
+                  <div class="flex items-center h-5">
+                    <input
+                      id="terms"
+                      v-model="form.terms"
+                      type="checkbox"
+                      required
+                      class="w-4 h-4 text-emerald-600 border-emerald-300 rounded focus:ring-emerald-500/20"
+                    />
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="terms" class="text-gray-600">
+                      I agree to the
+                      <a :href="route('terms.show')" target="_blank" class="font-medium text-emerald-600 hover:text-emerald-700">Terms of Service</a>
+                      and
+                      <a :href="route('policy.show')" target="_blank" class="font-medium text-emerald-600 hover:text-emerald-700">Privacy Policy</a>
+                    </label>
+                    <p v-if="errors.terms" class="text-red-600 mt-1">{{ errors.terms }}</p>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                  <button
+                    type="submit"
+                    :disabled="processing || form.password !== form.password_confirmation || !form.terms"
+                    class="group relative w-full flex items-center justify-center px-6 py-4 text-base font-bold rounded-xl text-white shadow-lg shadow-emerald-300/50 hover:shadow-xl hover:shadow-emerald-400/50 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
+                    :class="{
+                      'from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700': !processing && form.password === form.password_confirmation && form.terms
+                    }"
+                  >
+                    <div v-if="!processing" class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl"></div>
+                    <div v-if="!processing" class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span v-if="!processing" class="relative flex items-center">
+                      <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      Continue to Next Step
+                    </span>
+                    <span v-else class="relative flex items-center">
+                      <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Creating Account...
+                    </span>
+                  </button>
+
+                  <p class="text-center text-sm text-gray-500 mt-4">
+                    Next: Qualification & Profile Details
+                  </p>
+                </div>
+              </div>
+            </form>
+
+            <!-- Already have account -->
+            <div class="mt-8 pt-6 border-t border-emerald-100 text-center">
+              <p class="text-sm text-gray-600">
+                Already have an account?
+                <a :href="route('login')" class="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">
+                  Sign in here
+                </a>
+              </p>
             </div>
           </div>
         </div>
 
-        <!-- Email/Password Form -->
-        <form @submit.prevent="submitForm" class="mt-8 space-y-6">
-          <div class="space-y-5">
-            <div>
-              <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-              <div class="mt-1">
-                <input
-                  id="name"
-                  v-model="form.name"
-                  type="text"
-                  required
-                  class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
-                  :class="{ 'border-red-300': errors.name }"
-                />
-                <p v-if="errors.name" class="mt-2 text-sm text-red-600">{{ errors.name }}</p>
-              </div>
-            </div>
-
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-              <div class="mt-1">
-                <input
-                  id="email"
-                  v-model="form.email"
-                  type="email"
-                  required
-                  class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
-                  :class="{ 'border-red-300': errors.email }"
-                />
-                <p v-if="errors.email" class="mt-2 text-sm text-red-600">{{ errors.email }}</p>
-              </div>
-            </div>
-
-            <div>
-              <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-              <div class="mt-1">
-                <input
-                  id="password"
-                  v-model="form.password"
-                  type="password"
-                  required
-                  class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
-                  :class="{ 'border-red-300': errors.password }"
-                />
-                <p v-if="errors.password" class="mt-2 text-sm text-red-600">{{ errors.password }}</p>
-              </div>
-            </div>
-
-            <div>
-              <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-              <div class="mt-1">
-                <input
-                  id="password_confirmation"
-                  v-model="form.password_confirmation"
-                  type="password"
-                  required
-                  class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                :disabled="processing"
-                class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 transition"
-              >
-                {{ processing ? 'Processing...' : 'Continue to Qualifying Questions' }}
-              </button>
-            </div>
-          </div>
-        </form>
+        <!-- Benefits Section -->
+        <div class="mt-8 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-100">
+          <h4 class="text-sm font-semibold text-emerald-800 mb-4">Why Join as a Teacher?</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start text-sm">
+              <svg class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">AI-powered teaching appraisals & insights</span>
+            </li>
+            <li class="flex items-start text-sm">
+              <svg class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">Access exclusive teaching job opportunities</span>
+            </li>
+            <li class="flex items-start text-sm">
+              <svg class="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">Track professional growth with data analytics</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -134,27 +297,62 @@
 <script setup>
 import { ref } from 'vue'
 import { useForm } from '@inertiajs/vue3'
-import { Head } from '@inertiajs/vue3'
 
 const processing = ref(false)
+const passwordStrength = ref(0)
 
 const form = useForm({
   name: '',
   email: '',
   password: '',
   password_confirmation: '',
+  terms: false,
 })
 
 const props = defineProps({
   errors: Object
 })
 
+const updatePasswordStrength = () => {
+  const password = form.password
+  let strength = 0
+
+  if (password.length >= 8) strength += 25
+  if (/[A-Z]/.test(password)) strength += 25
+  if (/[0-9]/.test(password)) strength += 25
+  if (/[^A-Za-z0-9]/.test(password)) strength += 25
+
+  passwordStrength.value = strength
+}
+
 const submitForm = () => {
+  if (!form.terms || form.password !== form.password_confirmation) {
+    return
+  }
+
   processing.value = true
-  form.post('/teacher/register', {
+  form.post(route('teacher.register.step1'), {
     onFinish: () => {
       processing.value = false
     }
   })
 }
 </script>
+
+<style scoped>
+/* Smooth focus states */
+input:focus {
+  outline: none;
+  ring-width: 2px;
+}
+
+/* Custom checkbox styling */
+input[type='checkbox']:checked {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+  border-color: transparent;
+  background-color: currentColor;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>

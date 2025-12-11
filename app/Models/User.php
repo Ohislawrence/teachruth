@@ -144,4 +144,6 @@ class User extends Authenticatable
             self::TYPE_ADMIN => 'Administrator',
         ];
     }
+
+
 }

@@ -59,8 +59,9 @@
                         </div>
                     </div>
 
-                    <!-- Stats Cards -->
+                    <!-- Stats Cards - Add loading/empty state -->
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <!-- Total Jobs -->
                         <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 p-6">
                             <div class="flex items-center">
                                 <div class="p-3 rounded-xl bg-emerald-100 mr-4">
@@ -68,13 +69,31 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <p class="text-sm font-medium text-emerald-600">Total Jobs</p>
-                                    <p class="text-2xl font-bold text-gray-900">{{ stats.total_jobs }}</p>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-emerald-600">Total Jobs Posted</p>
+                                    <p class="text-2xl font-bold text-gray-900 mt-1">{{ stats?.total_jobs || 0 }}</p>
                                 </div>
+                                <div class="text-right">
+                                    <div class="text-xs font-semibold px-2 py-1 rounded-full"
+                                         :class="(stats?.active_jobs || 0) > 0 ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'">
+                                        {{ stats?.active_jobs || 0 }} active
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <Link
+                                    :href="route('school.jobs')"
+                                    class="text-sm font-medium text-emerald-600 hover:text-emerald-700 inline-flex items-center"
+                                >
+                                    View all jobs
+                                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </Link>
                             </div>
                         </div>
 
+                        <!-- Active Jobs -->
                         <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 p-6">
                             <div class="flex items-center">
                                 <div class="p-3 rounded-xl bg-green-100 mr-4">
@@ -84,11 +103,17 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-emerald-600">Active Jobs</p>
-                                    <p class="text-2xl font-bold text-gray-900">{{ stats.active_jobs }}</p>
+                                    <p class="text-2xl font-bold text-gray-900 mt-1">{{ stats?.active_jobs || 0 }}</p>
                                 </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Jobs currently accepting applications
+                                </p>
                             </div>
                         </div>
 
+                        <!-- Total Applications -->
                         <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 p-6">
                             <div class="flex items-center">
                                 <div class="p-3 rounded-xl bg-blue-100 mr-4">
@@ -96,13 +121,30 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <p class="text-sm font-medium text-emerald-600">Applications</p>
-                                    <p class="text-2xl font-bold text-gray-900">{{ stats.total_applications }}</p>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-emerald-600">Total Applications</p>
+                                    <p class="text-2xl font-bold text-gray-900 mt-1">{{ stats?.total_applications || 0 }}</p>
                                 </div>
+                                <div class="text-right">
+                                    <div class="text-xs font-semibold px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">
+                                        {{ stats?.pending_applications || 0 }} pending
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <Link
+                                    :href="route('school.applications')"
+                                    class="text-sm font-medium text-emerald-600 hover:text-emerald-700 inline-flex items-center"
+                                >
+                                    Review applications
+                                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </Link>
                             </div>
                         </div>
 
+                        <!-- Pending Applications -->
                         <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 p-6">
                             <div class="flex items-center">
                                 <div class="p-3 rounded-xl bg-yellow-100 mr-4">
@@ -112,14 +154,25 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-emerald-600">Pending Review</p>
-                                    <p class="text-2xl font-bold text-gray-900">{{ stats.pending_applications }}</p>
+                                    <p class="text-2xl font-bold text-gray-900 mt-1">{{ stats?.pending_applications || 0 }}</p>
                                 </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Applications awaiting your review
+                                </p>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Loading State -->
+                    <div v-if="loading" class="text-center py-16">
+                        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-600 mb-4"></div>
+                        <p class="text-emerald-700">Loading jobs...</p>
+                    </div>
+
                     <!-- Jobs Table -->
-                    <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 overflow-hidden">
+                    <div v-else class="bg-white shadow-xl rounded-2xl border border-emerald-100 overflow-hidden">
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-emerald-100">
                                 <thead class="bg-gradient-to-r from-emerald-50 to-teal-50">
@@ -166,7 +219,7 @@
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <div class="text-sm font-bold text-gray-900">{{ job.applications_count }}</div>
+                                                    <div class="text-sm font-bold text-gray-900">{{ job.applications_count || 0 }}</div>
                                                     <div class="text-xs text-emerald-600">
                                                         <Link :href="route('school.jobs.applicants', job.id)" class="hover:text-emerald-700">
                                                             View applicants
@@ -251,16 +304,16 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div v-if="jobs.links.length > 3" class="mt-8 bg-white shadow-xl rounded-2xl border border-emerald-100 p-6">
+                    <div v-if="jobs.links && jobs.links.length > 3" class="mt-8 bg-white shadow-xl rounded-2xl border border-emerald-100 p-6">
                         <div class="flex flex-col sm:flex-row items-center justify-between">
                             <div class="mb-4 sm:mb-0">
                                 <p class="text-sm text-gray-700">
                                     Showing
-                                    <span class="font-bold text-emerald-700">{{ jobs.from }}</span>
+                                    <span class="font-bold text-emerald-700">{{ jobs.from || 0 }}</span>
                                     to
-                                    <span class="font-bold text-emerald-700">{{ jobs.to }}</span>
+                                    <span class="font-bold text-emerald-700">{{ jobs.to || 0 }}</span>
                                     of
-                                    <span class="font-bold text-emerald-700">{{ jobs.total }}</span>
+                                    <span class="font-bold text-emerald-700">{{ jobs.total || 0 }}</span>
                                     jobs
                                 </p>
                             </div>
@@ -291,14 +344,45 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { Link, router } from '@inertiajs/vue3'
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const props = defineProps({
-    jobs: Object,
-    stats: Object
+    jobs: {
+        type: Object,
+        default: () => ({
+            data: [],
+            links: [],
+            from: 0,
+            to: 0,
+            total: 0
+        })
+    },
+    stats: {
+        type: Object,
+        default: () => ({
+            total_jobs: 0,
+            active_jobs: 0,
+            total_applications: 0,
+            pending_applications: 0
+        })
+    }
+})
+
+const loading = ref(false)
+
+onMounted(() => {
+    // If props are empty, fetch data
+    if (!props.jobs.data || props.jobs.data.length === 0) {
+        loading.value = true
+        // You could add data fetching here if needed
+        setTimeout(() => {
+            loading.value = false
+        }, 500)
+    }
 })
 
 const formatDate = (dateString) => {
+    if (!dateString) return 'N/A'
     return new Date(dateString).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
@@ -307,18 +391,22 @@ const formatDate = (dateString) => {
 }
 
 const formatSubjectName = (subject) => {
+    if (!subject) return 'N/A'
     return subject.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
 }
 
 const formatLevelName = (level) => {
+    if (!level) return 'N/A'
     return level.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
 }
 
 const formatEmploymentType = (type) => {
+    if (!type) return 'N/A'
     return type.replace(/_/g, ' ').toUpperCase()
 }
 
 const getDaysLeft = (deadline) => {
+    if (!deadline) return 0
     const deadlineDate = new Date(deadline)
     const today = new Date()
     const diffTime = deadlineDate - today
@@ -341,7 +429,7 @@ const toggleStatus = (job) => {
 
 const deleteJob = (job) => {
     if (confirm('Are you sure you want to delete this job posting? This action cannot be undone.')) {
-        if (job.applications_count > 0) {
+        if ((job.applications_count || 0) > 0) {
             alert('Cannot delete job with existing applications. Please deactivate it instead.')
             return
         }

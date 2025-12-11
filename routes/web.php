@@ -54,7 +54,15 @@ Route::prefix('teacher/register')->group(function () {
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
-});
+})->name('welcome');
+
+Route::get('terms', function () {
+    return Inertia::render('Welcome');
+})->name('terms.show');
+
+Route::get('policy', function () {
+    return Inertia::render('Welcome');
+})->name('policy.show');
 
 Route::middleware([
     'auth:sanctum',
@@ -173,4 +181,20 @@ Route::middleware([
     Route::get('/applications', [SchoolDashboardController::class, 'applications'])->name('applications');
     Route::get('/applications/{application}', [SchoolDashboardController::class, 'showApplication'])->name('applications.show');
     Route::post('/applications/{application}/status', [SchoolDashboardController::class, 'updateApplicationStatus'])->name('applications.update-status');
+
+    Route::get('/teacher/{teacher}/appraisal/{appraisal}', [SchoolDashboardController::class, 'viewAppraisal'])
+        ->name('teacher.appraisal');
+
+    // Applicants management
+    Route::get('/jobs/{job}/applicants', [SchoolDashboardController::class, 'viewApplicants'])
+        ->name('jobs.applicants');
+
+    Route::post('/applications/bulk-update', [SchoolDashboardController::class, 'bulkUpdateApplications'])
+        ->name('applications.bulk-update');
+
+    Route::post('/applications/bulk-email', [SchoolDashboardController::class, 'sendBulkEmail'])
+        ->name('applications.bulk-email');
+
+    Route::post('/applications/{job}/export', [SchoolDashboardController::class, 'exportApplicants'])
+        ->name('applications.export');
 });

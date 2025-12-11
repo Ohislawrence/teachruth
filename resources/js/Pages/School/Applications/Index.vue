@@ -103,7 +103,7 @@
                                     class="w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none transition bg-white"
                                 >
                                     <option value="">All Jobs</option>
-                                    <option v-for="job in jobs" :key="job.id" :value="job.id">
+                                    <option v-for="job in jobs || []" :key="job.id" :value="job.id">
                                         {{ job.title }}
                                     </option>
                                 </select>
@@ -377,8 +377,14 @@ import { debounce } from 'lodash'
 
 const props = defineProps({
     applications: Object,
-    jobs: Array,
-    filters: Object
+    jobs: {
+        type: Array,
+        default: () => []
+    },
+    filters: {
+        type: Object,
+        default: () => ({})
+    }
 })
 
 const filters = ref({

@@ -118,9 +118,10 @@ class TeacherDashboardController extends Controller
         }
 
         JobApplication::create([
-            'job_id' => $job->id,
+            'job_id' => null,
             'teacher_id' => $user->id,
             'cover_letter' => $request->cover_letter,
+            'available__job_id' => $job->id,
         ]);
 
         return redirect()->route('teacher.applications')->with('success', 'Application submitted successfully.');
@@ -133,6 +134,7 @@ class TeacherDashboardController extends Controller
         // Get applications with relationships
         $applications = JobApplication::where('teacher_id', $teacherId)
             ->with(['job.school.schoolProfile'])
+            ->with(['job'])
             ->latest()
             ->paginate(10);
 

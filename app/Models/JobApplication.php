@@ -20,12 +20,13 @@ class JobApplication extends Model
         'cover_letter',
         'status',
         'school_feedback',
+        'available__job_id',
     ];
 
     // Relationships
     public function job()
     {
-        return $this->belongsTo(Available_Job::class);
+        return $this->belongsTo(Available_Job::class,'available__job_id');
     }
 
     public function teacher()

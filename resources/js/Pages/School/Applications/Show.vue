@@ -231,7 +231,114 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Appraisal Information -->
+                            <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 overflow-hidden" v-if="application.teacher.appraisals?.length > 0">
+                                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 sm:px-8">
+                                    <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                                        <svg class="w-5 h-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                        </svg>
+                                        AI Appraisal Results
+                                    </h2>
+                                </div>
+                                <div class="px-6 py-6 sm:px-8">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-5 border border-emerald-100">
+                                            <div class="text-center">
+                                                <p class="text-sm font-medium text-emerald-600">Overall Score</p>
+                                                <div class="mt-2 flex items-center justify-center">
+                                                    <span class="text-4xl font-bold text-emerald-700">
+                                                        {{ application.teacher.appraisals[0].overall_score }}
+                                                    </span>
+                                                    <span class="text-xl text-emerald-600 ml-1">/100</span>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <span :class="getGradeBadgeClass(application.teacher.appraisals[0].overall_score)"
+                                                        class="px-3 py-1 rounded-full text-sm font-bold">
+                                                        {{ getGradeFromScore(application.teacher.appraisals[0].overall_score) }}
+                                                    </span>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <div class="h-3 bg-emerald-200 rounded-full overflow-hidden">
+                                                        <div class="h-full bg-emerald-600 rounded-full"
+                                                            :style="{ width: application.teacher.appraisals[0].overall_score + '%' }"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div class="space-y-3">
+                                            <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-emerald-100">
+                                                <span class="text-sm font-medium text-emerald-700">Appraisal Date</span>
+                                                <span class="text-sm font-semibold text-gray-900">
+                                                    {{ formatDate(application.teacher.appraisals[0].created_at) }}
+                                                </span>
+                                            </div>
+                                            <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-emerald-100">
+                                                <span class="text-sm font-medium text-emerald-700">Status</span>
+                                                <span v-if="application.teacher.appraisals[0].is_latest"
+                                                    class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                                                    Latest Appraisal
+                                                </span>
+                                                <span v-else class="px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-800">
+                                                    Previous Appraisal
+                                                </span>
+                                            </div>
+                                            <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-emerald-100">
+                                                <span class="text-sm font-medium text-emerald-700">Report</span>
+                                                <a v-if="application.teacher.appraisals[0].appraisal_report_path"
+                                                :href="application.teacher.appraisals[0].report_url"
+                                                target="_blank"
+                                                class="inline-flex items-center px-3 py-1 text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition">
+                                                    View Report
+                                                </a>
+                                                <span v-else class="text-sm text-gray-500">No report available</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strengths -->
+                                    <div class="mt-6">
+                                        <h3 class="text-lg font-semibold text-gray-900 mb-3">Key Strengths</h3>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span v-for="(strength, index) in getStrengthsArray(application.teacher.appraisals[0])"
+                                                :key="index"
+                                                class="px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium">
+                                                {{ strength }}
+                                            </span>
+                                            <span v-if="getStrengthsArray(application.teacher.appraisals[0]).length === 0"
+                                                class="text-gray-500 italic">
+                                                No strengths recorded
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Improvement Areas -->
+                                    <div class="mt-6" v-if="getImprovementAreasArray(application.teacher.appraisals[0]).length > 0">
+                                        <h3 class="text-lg font-semibold text-gray-900 mb-3">Areas for Improvement</h3>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span v-for="(area, index) in getImprovementAreasArray(application.teacher.appraisals[0])"
+                                                :key="index"
+                                                class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-full text-sm font-medium">
+                                                {{ area }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- View Full Appraisal Button -->
+                                    <div class="mt-6 pt-6 border-t border-emerald-100">
+                                        <Link v-if="application.teacher.appraisals[0].id"
+                                            :href="route('school.teacher.appraisal', { teacher: application.teacher.id, appraisal: application.teacher.appraisals[0].id })"
+                                            class="inline-flex items-center px-4 py-2.5 border border-transparent text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-300 transition">
+                                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            View Full Appraisal Details
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Cover Letter Card -->
                             <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 overflow-hidden">
                                 <div class="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 sm:px-8">
@@ -251,69 +358,7 @@
                                 </div>
                             </div>
 
-                            <!-- Appraisal Information -->
-                            <div class="bg-white shadow-xl rounded-2xl border border-emerald-100 overflow-hidden" v-if="application.teacher.appraisals?.length > 0">
-                                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 sm:px-8">
-                                    <h2 class="text-xl font-bold text-gray-900 flex items-center">
-                                        <svg class="w-5 h-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                        </svg>
-                                        Appraisal Results
-                                    </h2>
-                                </div>
-                                <div class="px-6 py-6 sm:px-8">
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-5 border border-emerald-100">
-                                            <div class="text-center">
-                                                <p class="text-sm font-medium text-emerald-600">Overall Score</p>
-                                                <div class="mt-2 flex items-center justify-center">
-                                                    <span class="text-4xl font-bold text-emerald-700">
-                                                        {{ application.teacher.appraisals[0].score }}
-                                                    </span>
-                                                    <span class="text-xl text-emerald-600 ml-1">/100</span>
-                                                </div>
-                                                <div class="mt-4">
-                                                    <div class="h-3 bg-emerald-200 rounded-full overflow-hidden">
-                                                        <div class="h-full bg-emerald-600 rounded-full"
-                                                             :style="{ width: application.teacher.appraisals[0].score + '%' }"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="space-y-3">
-                                            <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-emerald-100">
-                                                <span class="text-sm font-medium text-emerald-700">Appraisal Date</span>
-                                                <span class="text-sm font-semibold text-gray-900">
-                                                    {{ formatDate(application.teacher.appraisals[0].created_at) }}
-                                                </span>
-                                            </div>
-                                            <div class="flex justify-between items-center p-3 bg-white rounded-lg border border-emerald-100">
-                                                <span class="text-sm font-medium text-emerald-700">Status</span>
-                                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">
-                                                    {{ application.teacher.appraisals[0].status }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Strengths -->
-                                    <div class="mt-6">
-                                        <h3 class="text-lg font-semibold text-gray-900 mb-3">Key Strengths</h3>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span v-for="(strength, index) in application.teacher.appraisals[0].strengths || []"
-                                                  :key="index"
-                                                  class="px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium">
-                                                {{ strength }}
-                                            </span>
-                                            <span v-if="(!application.teacher.appraisals[0].strengths || application.teacher.appraisals[0].strengths.length === 0)"
-                                                  class="text-gray-500 italic">
-                                                No strengths recorded
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Sidebar -->
@@ -600,5 +645,63 @@ const saveFeedback = () => {
             savingFeedback.value = false
         }
     })
+}
+
+const getStrengthsArray = (appraisal) => {
+    if (!appraisal || !appraisal.strengths) return []
+
+    if (Array.isArray(appraisal.strengths)) {
+        return appraisal.strengths
+    }
+
+    // Try to parse string into array
+    const text = appraisal.strengths.toString()
+    const separators = ['. ', '; ', '| ', '• ', '- ']
+    for (const sep of separators) {
+        if (text.includes(sep)) {
+            return text.split(sep).map(item => item.trim()).filter(item => item)
+        }
+    }
+
+    // If no separators found, wrap as single item array
+    return [text]
+}
+
+const getImprovementAreasArray = (appraisal) => {
+    if (!appraisal || !appraisal.improvement_areas) return []
+
+    if (Array.isArray(appraisal.improvement_areas)) {
+        return appraisal.improvement_areas
+    }
+
+    // Try to parse string into array
+    const text = appraisal.improvement_areas.toString()
+    const separators = ['. ', '; ', '| ', '• ', '- ']
+    for (const sep of separators) {
+        if (text.includes(sep)) {
+            return text.split(sep).map(item => item.trim()).filter(item => item)
+        }
+    }
+
+    // If no separators found, wrap as single item array
+    return [text]
+}
+
+const getGradeFromScore = (score) => {
+    if (score >= 90) return 'A+'
+    if (score >= 80) return 'A'
+    if (score >= 70) return 'B'
+    if (score >= 60) return 'C'
+    if (score >= 50) return 'D'
+    return 'F'
+}
+
+const getGradeBadgeClass = (score) => {
+    if (score >= 90) return 'bg-green-100 text-green-800'
+    if (score >= 80) return 'bg-blue-100 text-blue-800'
+    if (score >= 70) return 'bg-yellow-100 text-yellow-800'
+    if (score >= 60) return 'bg-orange-100 text-orange-800'
+    if (score >= 50) return 'bg-red-100 text-red-800'
+    return 'bg-gray-100 text-gray-800'
 }
 </script>
