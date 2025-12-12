@@ -158,7 +158,7 @@ Route::prefix('school/register')->group(function () {
     Route::post('/complete', [SchoolRegistrationController::class, 'completeRegistration'])->name('school.register.complete');
 });
 
-// School Routes
+// School Routes this
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
