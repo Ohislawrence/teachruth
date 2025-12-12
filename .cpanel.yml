@@ -1,0 +1,22 @@
+deployment:
+  tasks:
+    # Set deployment path for clarity
+    - export DEPLOYPATH=/home/eduresourcecom/public_html/teachergauge
+
+    # Put app in maintenance mode
+    - /usr/local/bin/php $DEPLOYPATH/artisan down || true
+
+    # Copy repository files to deployment folder
+    - /bin/rsync -av --exclude=".cpanel" --exclude=".git" --exclude="node_modules" ./ $DEPLOYPATH
+
+    # Install composer dependencies (production mode)
+    - /opt/cpanel/composer/bin/composer install --no-dev --optimize-autoloader --working-dir=$DEPLOYPATH
+
+    # Run database migrations
+    - /usr/local/bin/php $DEPLOYPATH/artisan migrate --force
+
+    # Clear caches and optimize
+    - /usr/local/bin/php $DEPLOYPATH/artisan optimize
+
+    # Bring the app back online
+    - /usr/local/bin/php $DEPLOYPATH/artisan up
