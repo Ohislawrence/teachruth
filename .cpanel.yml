@@ -1,7 +1,7 @@
 deployment:
   tasks:
     # Set deployment path for clarity
-    - export DEPLOYPATH=/home/eduresourcecom/public_html/teachergauge
+    - export DEPLOYPATH=/home/eduresourcecom/public_html/tgNew
 
     # Put app in maintenance mode
     - /usr/local/bin/php $DEPLOYPATH/artisan down || true
