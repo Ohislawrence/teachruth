@@ -112,6 +112,7 @@ Route::prefix('admin')->middleware(['auth:sanctum',
     // Users Management
     Route::get('/teachers', [AdminUserController::class, 'teachers'])->name('admin.teachers');
     Route::get('/teachers/{user}', [AdminUserController::class, 'showTeacher'])->name('admin.teachers.show');
+    Route::delete('/teachers/{user}', [AdminUserController::class, 'destroyTeacher'])->name('admin.teachers.destroy');
     Route::get('/schools', [AdminUserController::class, 'schools'])->name('admin.schools');
     Route::get('/schools/{user}', [AdminUserController::class, 'showSchool'])->name('admin.schools.show');
     Route::post('/schools/{user}/verify', [AdminUserController::class, 'verifySchool'])->name('admin.schools.verify');
