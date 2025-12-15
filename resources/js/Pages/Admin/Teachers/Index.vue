@@ -6,6 +6,38 @@
             </h2>
         </template>
 
+        <!-- Success Message -->
+        <div v-if="$page.props.flash.success" class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+            <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-green-700">{{ $page.props.flash.success }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div v-if="$page.props.flash.error" class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+            <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700">{{ $page.props.flash.error }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <!-- Stats -->
@@ -66,12 +98,21 @@
                 <!-- Teachers List -->
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            All Teachers
-                        </h3>
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                            Manage and monitor all registered teachers in the system.
-                        </p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                    All Teachers
+                                </h3>
+                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                    Manage and monitor all registered teachers in the system.
+                                </p>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-500">
+                                    Total: {{ teachers.total }} teachers
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -103,7 +144,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-full" :src="teacher.profile_photo_url" :alt="teacher.name" />
+                                                <img class="h-10 w-10 rounded-full" :src="teacher.profile_photo_url || '/default-avatar.png'" :alt="teacher.name" />
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">{{ teacher.name }}</div>
@@ -119,7 +160,7 @@
                                             <div class="font-medium">{{ teacher.teacher_profile.qualification }}</div>
                                             <div>{{ teacher.teacher_profile.specialization }}</div>
                                             <div class="text-xs text-gray-500">
-                                                {{ teacher.teacher_profile.years_of_experience }} yrs exp
+                                                {{ teacher.teacher_profile.years_of_experience || 0 }} yrs exp
                                             </div>
                                         </div>
                                         <div v-else class="text-sm text-gray-500 italic">
@@ -150,18 +191,26 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <Link
-                                            :href="route('admin.teachers.show', teacher.id)"
-                                            class="text-blue-600 hover:text-blue-900 mr-3"
-                                        >
-                                            View
-                                        </Link>
-                                        <button
-                                            @click="toggleUserStatus(teacher)"
-                                            class="text-red-600 hover:text-red-900"
-                                        >
-                                            {{ teacher.suspended_at ? 'Unsuspend' : 'Suspend' }}
-                                        </button>
+                                        <div class="flex items-center space-x-3">
+                                            <Link
+                                                :href="safeRoute('admin.teachers.show', teacher.id)"
+                                                class="text-blue-600 hover:text-blue-900"
+                                            >
+                                                View
+                                            </Link>
+                                            <button
+                                                @click="toggleUserStatus(teacher)"
+                                                :class="teacher.suspended_at ? 'text-green-600 hover:text-green-900' : 'text-yellow-600 hover:text-yellow-900'"
+                                            >
+                                                {{ teacher.suspended_at ? 'Unsuspend' : 'Suspend' }}
+                                            </button>
+                                            <button
+                                                @click="confirmDeleteTeacher(teacher)"
+                                                class="text-red-600 hover:text-red-900"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -172,14 +221,14 @@
                     <div v-if="teachers.links.length > 3" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
                         <div class="flex-1 flex justify-between sm:hidden">
                             <Link
-                                :href="teachers.prev_page_url"
+                                :href="teachers.prev_page_url || '#'"
                                 :class="{'opacity-50 cursor-not-allowed': !teachers.prev_page_url}"
                                 class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                             >
                                 Previous
                             </Link>
                             <Link
-                                :href="teachers.next_page_url"
+                                :href="teachers.next_page_url || '#'"
                                 :class="{'opacity-50 cursor-not-allowed': !teachers.next_page_url}"
                                 class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                             >
@@ -203,12 +252,13 @@
                                     <Link
                                         v-for="(link, index) in teachers.links"
                                         :key="index"
-                                        :href="link.url"
+                                        :href="link.url || '#'"
                                         class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                                         :class="{
                                             'bg-blue-50 border-blue-500 text-blue-600 z-10': link.active,
                                             'rounded-l-md': index === 0,
-                                            'rounded-r-md': index === teachers.links.length - 1
+                                            'rounded-r-md': index === teachers.links.length - 1,
+                                            'opacity-50 cursor-not-allowed': !link.url
                                         }"
                                         v-html="link.label"
                                     ></Link>
@@ -230,6 +280,78 @@
                 </div>
             </div>
         </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div v-if="showDeleteModal" class="fixed inset-0 overflow-y-auto z-50">
+            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                </div>
+
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                                </svg>
+                            </div>
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                    Delete Teacher
+                                </h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500">
+                                        Are you sure you want to delete <strong>{{ teacherToDelete?.name }}</strong>? This action cannot be undone.
+                                    </p>
+                                    <div class="mt-4 p-3 bg-red-50 rounded-md">
+                                        <p class="text-sm text-red-700">
+                                            <strong>Warning:</strong> This will permanently delete:
+                                        </p>
+                                        <ul class="mt-1 text-sm text-red-600 list-disc list-inside">
+                                            <li>Teacher profile</li>
+                                            <li>All appraisals</li>
+                                            <li>All job applications</li>
+                                            <li>All payment records</li>
+                                            <li>User account</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button
+                            type="button"
+                            @click="deleteTeacher"
+                            :disabled="isDeleting"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <span v-if="isDeleting">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Deleting...
+                            </span>
+                            <span v-else>
+                                Delete
+                            </span>
+                        </button>
+                        <button
+                            type="button"
+                            @click="showDeleteModal = false"
+                            :disabled="isDeleting"
+                            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </AppLayout>
 </template>
 
@@ -245,12 +367,17 @@ const props = defineProps({
 })
 
 const filters = ref({
-    search: props.filters.search || ''
+    search: props.filters?.search || ''
 })
+
+// Delete modal state
+const showDeleteModal = ref(false)
+const teacherToDelete = ref(null)
+const isDeleting = ref(false)
 
 // Watch filters with debounce
 watch(filters, debounce((value) => {
-    router.get(route('admin.teachers'), value, {
+    router.get(route('admin.teachers.index'), value, {
         preserveState: true,
         replace: true
     })
@@ -263,14 +390,18 @@ const resetFilters = () => {
 }
 
 const activeTeachersCount = computed(() => {
+    if (!props.teachers?.data) return 0
     return props.teachers.data.filter(teacher => !teacher.suspended_at).length
 })
 
 const teachersWithAppraisals = computed(() => {
+    if (!props.teachers?.data) return 0
     return props.teachers.data.filter(teacher => teacher.appraisals_count > 0).length
 })
 
 const averageScore = computed(() => {
+    if (!props.teachers?.data) return 0
+
     const teachersWithScores = props.teachers.data.filter(teacher =>
         teacher.latest_appraisal && teacher.latest_appraisal.overall_score
     )
@@ -283,6 +414,7 @@ const averageScore = computed(() => {
 })
 
 const scoreColor = (score) => {
+    if (!score && score !== 0) return 'text-gray-500'
     if (score >= 80) return 'text-green-600'
     if (score >= 70) return 'text-yellow-600'
     if (score >= 60) return 'text-orange-600'
@@ -290,40 +422,164 @@ const scoreColor = (score) => {
 }
 
 const teacherStatusClass = (teacher) => {
+    if (!teacher) return 'bg-gray-100 text-gray-800'
     if (teacher.suspended_at) return 'bg-red-100 text-red-800'
     if (!teacher.teacher_profile) return 'bg-yellow-100 text-yellow-800'
     return 'bg-green-100 text-green-800'
 }
 
 const teacherStatusText = (teacher) => {
+    if (!teacher) return 'Unknown'
     if (teacher.suspended_at) return 'Suspended'
     if (!teacher.teacher_profile) return 'Incomplete'
     return 'Active'
 }
 
 const getShortlistedCount = (teacher) => {
-    // This would need actual shortlisted count data
-    return Math.floor((teacher.job_applications_count || 0) * 0.3) // Example: 30% shortlisted
+    if (!teacher?.job_applications_count) return 0
+    return Math.floor((teacher.job_applications_count || 0) * 0.3)
 }
 
 const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    })
+    if (!dateString) return 'Unknown date'
+    try {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        })
+    } catch (error) {
+        console.error('Date formatting error:', error)
+        return 'Invalid date'
+    }
+}
+
+// Safe route helper to prevent null.toString() errors
+const safeRoute = (name, params = {}) => {
+    try {
+        if (route().has(name)) {
+            return route(name, params)
+        }
+        console.warn(`Route ${name} not found`)
+        return '#'
+    } catch (error) {
+        console.error('Route error:', error)
+        return '#'
+    }
 }
 
 const toggleUserStatus = (teacher) => {
+    if (!teacher?.id) {
+        console.error('Teacher ID is missing:', teacher)
+        alert('Cannot update status: Invalid teacher data')
+        return
+    }
+
     const action = teacher.suspended_at ? 'unsuspend' : 'suspend'
-    if (confirm(`Are you sure you want to ${action} this teacher?`)) {
-        const routeName = teacher.suspended_at ? 'admin.users.unsuspend' : 'admin.users.suspend'
+    const routeName = teacher.suspended_at ? 'admin.users.unsuspend' : 'admin.users.suspend'
+
+    // Check if route exists
+    if (!route().has(routeName)) {
+        console.error(`Route ${routeName} not found`)
+        alert('Action not available')
+        return
+    }
+
+    if (confirm(`Are you sure you want to ${action} ${teacher.name}?`)) {
         router.post(route(routeName, teacher.id), {}, {
             preserveScroll: true,
             onSuccess: () => {
                 // Page will refresh with updated data
+            },
+            onError: (errors) => {
+                alert('Failed to update user status')
             }
         })
     }
 }
+
+const confirmDeleteTeacher = (teacher) => {
+    if (!teacher?.id) {
+        console.error('Cannot delete: Teacher ID is missing', teacher)
+        alert('Cannot delete: Invalid teacher data')
+        return
+    }
+
+    teacherToDelete.value = teacher
+    showDeleteModal.value = true
+}
+
+const deleteTeacher = () => {
+    if (!teacherToDelete.value?.id) {
+        console.error('No teacher selected for deletion')
+        showDeleteModal.value = false
+        return
+    }
+
+    // Check if route exists
+    if (!route().has('admin.teachers.destroy')) {
+        console.error('Route admin.teachers.destroy not found')
+        alert('Delete action not available')
+        showDeleteModal.value = false
+        return
+    }
+
+    isDeleting.value = true
+
+    router.delete(route('admin.teachers.destroy', teacherToDelete.value.id), {
+        preserveScroll: false,
+        onSuccess: () => {
+            showDeleteModal.value = false
+            teacherToDelete.value = null
+            isDeleting.value = false
+        },
+        onError: (errors) => {
+            console.error('Delete error:', errors)
+            alert('Failed to delete teacher. Please try again.')
+            isDeleting.value = false
+        },
+        onFinish: () => {
+            isDeleting.value = false
+        }
+    })
+}
+
+// Debug function - remove in production
+const debugRoutes = () => {
+    console.log('=== ROUTE DEBUG ===')
+    console.log('Current route:', route().current())
+
+    const routesToCheck = [
+        'admin.teachers.index',
+        'admin.teachers.show',
+        'admin.teachers.destroy',
+        'admin.users.suspend',
+        'admin.users.unsuspend'
+    ]
+
+    routesToCheck.forEach(routeName => {
+        console.log(`${routeName}:`, route().has(routeName))
+    })
+}
 </script>
+
+<style scoped>
+/* Optional: Add loading state styles */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>

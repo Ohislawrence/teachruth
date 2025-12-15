@@ -129,4 +129,55 @@ class AdminUserController extends Controller
 
         return redirect()->back()->with('success', 'User unsuspended successfully.');
     }
+
+    public function destroyTeacher(User $user)
+    {
+        if (!$user->isTeacher()) {
+            abort(404);
+        }
+
+        // Delete related records first to maintain data integrity
+        if ($user->teacherProfile) {
+            $user->teacherProfile->delete();
+        }
+
+        // Delete appraisals if they exist
+        $user->appraisals()->delete();
+
+        // Delete job applications
+        $user->jobApplications()->delete();
+
+        // Delete payments
+        $user->payments()->delete();
+
+        // Finally delete the user
+        $user->delete();
+
+        return redirect()->route('admin.teachers')
+            ->with('success', 'Teacher deleted successfully.');
+    }
+
+    public function destroySchool(User $user)
+    {
+        if (!$user->isSchool()) {
+            abort(404);
+        }
+
+        // Delete related records first to maintain data integrity
+        if ($user->schoolProfile) {
+            $user->schoolProfile->delete();
+        }
+
+        // Delete jobs and their applications
+        $user->jobs()->each(function ($job) {
+            $job->applications()->delete();
+            $job->delete();
+        });
+
+        // Finally delete the user
+        $user->delete();
+
+        return redirect()->route('admin.schools')
+            ->with('success', 'School deleted successfully.');
+    }
 }

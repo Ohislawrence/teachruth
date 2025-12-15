@@ -112,11 +112,12 @@ Route::prefix('admin')->middleware(['auth:sanctum',
     // Users Management
     Route::get('/teachers', [AdminUserController::class, 'teachers'])->name('admin.teachers');
     Route::get('/teachers/{user}', [AdminUserController::class, 'showTeacher'])->name('admin.teachers.show');
-    Route::delete('/teachers/{user}', [AdminUserController::class, 'destroyTeacher'])->name('admin.teachers.destroy');
+    Route::delete('/teachers/{user}/delete', [AdminUserController::class, 'destroyTeacher'])->name('admin.teachers.destroy');
     Route::get('/schools', [AdminUserController::class, 'schools'])->name('admin.schools');
     Route::get('/schools/{user}', [AdminUserController::class, 'showSchool'])->name('admin.schools.show');
     Route::post('/schools/{user}/verify', [AdminUserController::class, 'verifySchool'])->name('admin.schools.verify');
     Route::post('/schools/{user}/unverify', [AdminUserController::class, 'unverifySchool'])->name('admin.schools.unverify');
+    Route::delete('/schools/{user}/delete', [AdminUserController::class, 'destroySchool'])->name('admin.schools.destroy');
     Route::post('/users/{user}/suspend', [AdminUserController::class, 'suspendUser'])->name('admin.users.suspend');
     Route::post('/users/{user}/unsuspend', [AdminUserController::class, 'unsuspendUser'])->name('admin.users.unsuspend');
 
